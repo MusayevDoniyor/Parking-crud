@@ -34,4 +34,17 @@ const getCars = (id) => {
   return cars;
 };
 
-module.exports = { getCars };
+const postCar = (car) => {
+  const date = new Date();
+  const cars = readCars();
+  car.id = uuid4();
+  car.parkedAt = date.toISOString();
+
+  cars.push(car);
+
+  writeCars(cars);
+
+  return car;
+};
+
+module.exports = { getCars, postCar };

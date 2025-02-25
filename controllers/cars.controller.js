@@ -29,4 +29,19 @@ const getCarById = (req, res) => {
   }
 };
 
-module.exports = { getCars, getCarById };
+const postCar = (req, res) => {
+  try {
+    const { number, owner, model } = req.body;
+
+    if (!number || !owner || !model)
+      return res.status(400).json({ message: "All fields required" });
+
+    const car = carsService.postCar({ number, owner, model });
+
+    res.status(200).json({ message: "Car created successfully", car });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+module.exports = { getCars, getCarById, postCar };
