@@ -30,10 +30,13 @@ const getCarById = (req, res) => {
 
 const postCar = (req, res) => {
   try {
-    const { number, owner, model } = req.body;
+    const { number, owner, model } = req.body || req.query;
 
     if (!number || !owner || !model)
-      return res.status(400).json({ message: "All fields required" });
+      return res.status(400).json({
+        message: "All fields required",
+        body: req.body,
+      });
 
     const car = carsService.postCar({ number, owner, model });
 

@@ -22,9 +22,16 @@
   },
   {
     "number": "01Z352EB",
-    "owner": "Musayev Doniyor",
-    "model": "Moshina",
+    "owner": "Doniyor",
+    "model": "Nexia 3",
     "id": "bfec26d7-61ee-414b-909b-0d8961f90d3e",
     "parkedAt": "2025-02-25T14:03:27.781Z"
+  },
+  {
+    "number": "sd",
+    "owner": "asd",
+    "model": "asd",
+    "id": "79888834-f186-43a6-a856-2a4565960abb",
+    "parkedAt": "2025-02-25T15:17:44.346Z"
   }
 ]
