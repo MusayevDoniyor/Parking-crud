@@ -20,8 +20,7 @@ const getCarById = (req, res) => {
     if (car === "cars_not_found")
       return res.status(400).json({ message: "No cars in system" });
 
-    if (car === "car_not_found")
-      return res.status(404).json({ message: "Car not found" });
+    if (!car) return res.status(404).json({ message: "Car not found" });
 
     res.status(200).json({ car });
   } catch (error) {
@@ -38,10 +37,36 @@ const postCar = (req, res) => {
 
     const car = carsService.postCar({ number, owner, model });
 
-    res.status(200).json({ message: "Car created successfully", car });
+    res.status(201).json({ message: "Car created successfully", car });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-module.exports = { getCars, getCarById, postCar };
+const updatedCar = (req, res) => {
+  try {
+    const car = carsService.putCar(req.params.id, req.body);
+
+    if (!car) return res.status(404).json({ message: "Car not found" });
+
+    res.status(200).json({ message: "Car updated successfully", car });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+const deleteCar = (req, res) => {
+  try {
+    const car = carsService.removeCar(req.params.id);
+
+    if (!car) return res.status(404).json({ message: "Car not found" });
+
+    res.status(200).json({ message: "Car deleted successfully", car });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+module.exports = { getCars, getCarById, postCar, updatedCar, deleteCar };

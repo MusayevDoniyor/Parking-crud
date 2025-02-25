@@ -26,7 +26,7 @@ const getCars = (id) => {
   if (id) {
     const car = cars.find((c) => c.id === id);
 
-    if (!car) return "car_not_found";
+    if (!car) return null;
 
     return car;
   }
@@ -47,4 +47,29 @@ const postCar = (car) => {
   return car;
 };
 
-module.exports = { getCars, postCar };
+const putCar = (id, updatedCar) => {
+  const cars = readCars();
+  const index = cars.findIndex((c) => c.id === id);
+
+  if (index === -1) return null;
+
+  if (updatedCar.number) cars[index].number = updatedCar.number;
+  if (updatedCar.owner) cars[index].owner = updatedCar.owner;
+  if (updatedCar.model) cars[index].model = updatedCar.model;
+
+  writeCars(cars);
+  return cars[index];
+};
+
+const removeCar = (id) => {
+  let cars = readCars();
+  const index = cars.findIndex((c) => c.id === id);
+
+  if (index === -1) return null;
+
+  cars = cars.filter((car) => car.id !== id);
+  writeCars(cars);
+  return cars[index];
+};
+
+module.exports = { getCars, postCar, putCar, removeCar };
